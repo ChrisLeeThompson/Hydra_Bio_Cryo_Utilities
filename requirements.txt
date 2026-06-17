@@ -1,0 +1,27 @@
+# Hydra Bio Cryo Utilities v3 — Python dependencies
+# Target runtime: Python 3.11
+#
+# Only two third-party packages are imported by the application; everything
+# else it uses (logging, typing, dataclasses, pathlib, uuid, json, math,
+# threading, enum, argparse, ...) is in the Python standard library.
+
+# --- GUI framework --------------------------------------------------------
+# Qt for Python. Submodules used: QtCore, QtGui, QtQml, QtQuickControls2.
+# Pinned to the version this app is developed and validated against.
+PySide6==6.7.1
+
+# --- Microscope automation SDK -------------------------------------------
+# autoscript_sdb_microscope_client (AutoScript >= 4.12.0)
+#
+# NOT installable from PyPI. It is distributed by Thermo Fisher Scientific
+# as part of the AutoScript product and is managed inside the EDM-provided
+# "AutoScript" environment (Enthought Deployment Manager), not via pip.
+# Install/run the app inside that environment so the SDK is importable.
+#
+# The line below is intentionally left commented out so that
+# `pip install -r requirements.txt` succeeds for pure-UI / simulation-mode
+# development (run with --simulation, or DEV_FORCE_SIMULATION = True),
+# which needs only PySide6. Uncomment only if you maintain an internal
+# index/wheel that actually provides this package.
+#
+# autoscript_sdb_microscope_client>=4.12.0
