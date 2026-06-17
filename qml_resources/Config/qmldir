@@ -1,3 +1,0 @@
-module Config
-singleton AppConfig 1.0 AppConfig.qml
-singleton Strings 1.0 Strings.qml
