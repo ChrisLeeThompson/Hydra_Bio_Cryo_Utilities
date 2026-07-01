@@ -110,7 +110,6 @@ QtObject {
 
         // Settings
     readonly property string alwaysOnTopLabelTooltip: "Keep the UI window above all other applications."
-    readonly property string compactModeLabelTooltip: "Hide page subtitles and shrink the window to the Stage / Scan page's compact size. The window can still be resized."
     readonly property string gisGasPortNameLabelTooltip: "The name of the GIS gas port used in the GIS Purge and GIS Deposition activities."
     readonly property string bulkSputteringDefaultDurationLabelTooltip: "The default duration (seconds) for the Bulk Sputtering button in the Sputter Coat activity."
     readonly property string lamellaSputteringDefaultDurationLabelTooltip: "The default duration (seconds) for the Lamella Sputtering button in the Sputter Coat activity."
