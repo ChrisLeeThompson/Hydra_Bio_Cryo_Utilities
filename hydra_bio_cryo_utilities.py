@@ -1,6 +1,6 @@
 # This Python file uses the following encoding: utf-8
 """
-Hydra Bio Cryo Utilities 3.0
+Hydra Bio Cryo Utilities
 .
 A PySide6/QML desktop UI for the Thermo Scientific Hydra Bio microscope
 (AutoScript >= 4.13). Run this file to launch; pass ``--simulation`` to
