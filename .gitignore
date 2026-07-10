@@ -26,6 +26,7 @@ htmlcov/
 .vscode/
 .idea/
 .qtcreator/
+.claude/
 *.swp
 Thumbs.db
 Desktop.ini
