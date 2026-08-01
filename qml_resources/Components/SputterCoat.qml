@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import HydraBio.Microscope 1.0
 import "../Config"
 
-// Sputter Coat activity (Hydra Bio micro sputter coater).
+// Sputter Coat activity (PFIB + Hydra Bio microsputter coater).
 //
 // Controls the sputter coater. The activity exposes:
 //   • a grid selection ComboBox (Grid 1 / Grid 2 / Grid 1, 2)
