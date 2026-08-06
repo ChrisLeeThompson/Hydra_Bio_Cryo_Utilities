@@ -52,7 +52,7 @@ var FIB_ANGLE_FROM_HORIZONTAL_DEG =
 // AutoGrid shuttle pre-tilt of the grid/sample face.
 var SHUTTLE_PRE_TILT_DEG = 35.0
 
-// GIS needle, measured from the SEM column, on the FIB side of the SEM.
+// GIS needle, measured from the SEM column, on the FIB side of the SEM. Port 5.
 var GIS_ANGLE_FROM_SEM_DEG = 73.5
 
 // -----------------------------------------------------------------------------

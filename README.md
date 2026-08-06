@@ -1,4 +1,4 @@
-Hydra Bio Cryo Utilities 3.0
+Hydra Bio Cryo Utilities 3
 
 Run in simulation mode:
 1. Edit the defaults.py file located in Hydra_Bio_Cryo_Utilities_3.0/hydra_bio_cu/defaults.py
