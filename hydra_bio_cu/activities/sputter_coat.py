@@ -1,12 +1,8 @@
 """Sputter Coat activity service.
 
 Hardware-side implementation of the Sputter Coat activity used in
-Cryo Prep workflows. Mirrors v2.1's proven sequence on Hydra Bio
-systems (the only platform this app targets — ``prepare()`` /
-``recover()`` are not supported).
-
-Sequence
---------
+Cryo Prep workflows on Hydra Bio systems (``prepare()`` /
+``recover()`` are not supported). Sequence:
 
 1. Verify the sputter coater is installed (else fail early with
    :class:`ActivityResult.EXCEPTION`).
@@ -15,64 +11,25 @@ Sequence
 4. Turn on the ion beam.
 5. Set ion beam high voltage to the sputter coat HV (12 kV).
 6. Set ion beam current and sputter coater current to matching values.
-7. Run the sputter (uninterruptible; capped to simulated duration in
-   simulation mode).
+7. Run the sputter (uninterruptible; capped in simulation mode).
 8. Run the chamber recovery (interruptible per-second loop).
 
-Cancellation
-------------
-
-Stop checks are issued before every AutoScript call. The two
-operations that can't be interrupted mid-call are:
-
-* ``sputter_coater.home()`` — runs to completion.
-* ``sputter_coater.run()`` — runs to completion.
-
-For both, we check the stop event immediately after the call
-returns, and return :class:`ActivityResult.STOP` (skipping
-subsequent steps and chamber recovery) if set.
-
-The chamber recovery loop is interruptible per second, matching
-the GIS Purge pattern.
-
-PFIB conditions
----------------
+Stop checks are issued before every AutoScript call and immediately
+after the two uninterruptible ones (``home()`` and ``run()``); a stop
+noticed there returns :class:`ActivityResult.STOP` and skips the
+remaining steps.
 
 Sputter Coat mutates plasma gas, high voltage, beam current, and
-beam-on state. Capture and restore of those values is handled at
-the workflow level — see :meth:`CPWorkflow._before_run` and
-:meth:`CPWorkflow._after_run`. The activity itself does not try
-to undo its mutations: in a multi-coat sequence, restoring between
-consecutive Sputter Coats would revert state we're about to mutate
-again.
+beam-on state but does not undo them itself — in a multi-coat
+sequence, restoring between consecutive coats would revert state
+about to be set again. Capture and restore happen at the workflow
+level (:meth:`CPWorkflow._before_run` / :meth:`CPWorkflow._after_run`).
 
-Beam current
-------------
-
-The activity stores beam current as an actual amperes value rather
-than a UI-list index. This decouples the storage from the QML's
-species-specific current lists: AutoScript snaps the value to the
-nearest available current for the active species, so the value is
-portable across species changes.
-
-Progress reporting
-------------------
-
-The activity emits one ``report_indeterminate`` at the top of
-:meth:`_run_inner`, then lets the StatusBar progress bar ride in
-indeterminate mode through every step until chamber recovery. The
-intermediate steps (set species, beam on, set HV, set current,
-sputter run) are all opaque from our side — AutoScript doesn't
-expose per-step or mid-call progress hooks — so a unified
-"indeterminate for the whole hardware sequence" mode is the most
-honest visual signal. Chamber recovery is the one phase we *can*
-report determinate progress for, because it's our own
-``time.sleep`` loop with a known total; it emits per-second
-``on_progress(i, total)`` calls that flip the bar back to
-determinate mode automatically.
-
-Status emits at each step keep the user informed of what's
-happening even while the bar is indeterminate.
+Beam current is stored as an amperes value rather than a UI-list
+index; AutoScript snaps it to the nearest available current for the
+active species, so the value is portable across species changes.
+The progress bar rides in indeterminate mode through the opaque
+hardware steps and flips to determinate for chamber recovery.
 """
 from __future__ import annotations
 
@@ -309,9 +266,9 @@ class SputterCoatService(ActivityService):
         # Set ion beam high voltage.
         #
         # On Hydra Bio with the MicroSputter, the sputter HV is
-        # effectively fixed at 12 kV — but we set it explicitly in
+        # effectively fixed at 12 kV — but it is set explicitly in
         # case something else changed it earlier in the user's
-        # session, matching v2.1's defensive write.
+        # session.
         # ---------------------------------------------------------------
         on_status(f"Setting PFIB high voltage to "
                   f"{defaults.SPUTTER_HIGH_VOLTAGE_V / 1000:.0f} kV...")
