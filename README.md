@@ -1,8 +1,13 @@
 # Hydra Bio Cryo Utilities
 
-<!-- Full documentation: https://<site>/scripts/hydra_bio_cryo_utilities/ (enable this link when the site is live) -->
+> [!NOTE]
+> **Full documentation:** https://chrisleethompson.github.io/scripts/hydra_bio_cryo_utilities/
 
 A PySide6/QML desktop utility for the Thermo Scientific Hydra Bio cryo plasma FIB-SEM. It supports common cryo workflows on the microscope with automated preparation activities, stage movement controls, and angle calculators, and it runs through the Thermo Scientific AutoScript SDK.
+
+## Documentation
+
+Full documentation: https://chrisleethompson.github.io/scripts/hydra_bio_cryo_utilities/
 
 ## Features
 
